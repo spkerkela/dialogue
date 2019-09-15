@@ -1,4 +1,4 @@
-import {calledNTimes} from "./helpers.mjs"
+import { calledNTimes } from "./helpers.mjs";
 const dialogueTree = [
   {
     id: "root",

@@ -1,4 +1,4 @@
-import dialogueTree from "./first-dialogue.mjs"
+import dialogueTree from "./first-dialogue.mjs";
 var dialogue = document.getElementById("dialogue");
 var optionsContainer = document.getElementById("options");
 
