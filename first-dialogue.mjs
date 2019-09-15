@@ -1,19 +1,5 @@
-var dialogue = document.getElementById("dialogue");
-var optionsContainer = document.getElementById("options");
-
-var gameState = {
-  playerHasGem: false
-};
-
-var calledNTimes = function(n) {
-  var called = 0;
-  return function() {
-    called++;
-    return called >= n;
-  };
-};
-
-var dialogueTree = [
+import {calledNTimes} from "./helpers.mjs"
+const dialogueTree = [
   {
     id: "root",
     dialogue: "Hello",
@@ -42,11 +28,11 @@ var dialogueTree = [
       {
         optionText: "Can you give me a gem?",
         leadsTo: "give-gem",
-        requirement: function() {
-          return !gameState.playerHasGem;
+        requirement: function(state) {
+          return !state.playerHasGem;
         },
-        callback: function() {
-          gameState.playerHasGem = true;
+        callback: function(state) {
+          state.playerHasGem = true;
         }
       },
       { optionText: "Nope, bye", leadsTo: "bye" }
@@ -90,41 +76,4 @@ var dialogueTree = [
   }
 ];
 
-function changeDialogue(newText) {
-  dialogue.textContent = newText;
-}
-
-function clearOptions() {
-  optionsContainer.innerHTML = "";
-}
-
-function clicked(e) {
-  changeDialogue(e.target.textContent);
-  clearOptions();
-}
-
-function renderDialogue(id) {
-  var dialogue = dialogueTree.find(function(element) {
-    return element.id === id;
-  });
-
-  clearOptions();
-  changeDialogue(dialogue.dialogue);
-  dialogue.options.forEach(function(option) {
-    if (option.requirement != null && !option.requirement()) {
-      return;
-    }
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(option.optionText));
-    li.className = "clickable option";
-    li.onclick = function(clicked) {
-      if (option.callback != null) {
-        option.callback(option);
-      }
-      renderDialogue(option.leadsTo);
-    };
-    optionsContainer.appendChild(li);
-  });
-}
-
-renderDialogue("root");
+export default dialogueTree;
