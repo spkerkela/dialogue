@@ -6,7 +6,6 @@ const dialogueTree = [
     options: [
       { optionText: "Hello", leadsTo: "hub" },
       { optionText: "How are you", leadsTo: "well" },
-
       { optionText: "Goodbye", leadsTo: "bye" }
     ]
   },
